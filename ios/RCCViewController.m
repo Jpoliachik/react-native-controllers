@@ -103,20 +103,6 @@ const NSInteger BLUR_NAVBAR_TAG = 78264802;
   
   RCTRootView *reactView = [[RCTRootView alloc] initWithBridge:bridge moduleName:component initialProperties:mergedProps];
   if (!reactView) return nil;
-  
-  if (mergedProps[@"loadingImage"]) {
-    // Create loading view
-    NSString *loadingImageName = mergedProps[@"loadingImage"];
-    UIImage *image = [UIImage imageNamed:loadingImageName];
-    if (image) {
-      UIImageView *imageView = [[UIImageView alloc] initWithFrame:(CGRect){CGPointZero, RCTScreenSize()}];
-      imageView.contentMode = UIViewContentModeScaleAspectFill;
-      imageView.image = image;
-      reactView.loadingView = imageView;
-      reactView.loadingViewFadeDelay = 0.5;
-      reactView.loadingViewFadeDuration = 0.3;
-    }
-  }
 
   self = [super init];
   if (!self) return nil;
