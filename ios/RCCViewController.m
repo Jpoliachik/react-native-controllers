@@ -6,6 +6,7 @@
 #import "RCTRootView.h"
 #import "RCCManager.h"
 #import "RCTConvert.h"
+#import "RCTUtils.h"
 
 const NSInteger BLUR_STATUS_TAG = 78264801;
 const NSInteger BLUR_NAVBAR_TAG = 78264802;
@@ -197,11 +198,11 @@ const NSInteger BLUR_NAVBAR_TAG = 78264802;
   
   NSString *navBarTextColor = self.navigatorStyle[@"navBarTextColor"];
   NSString *navBarFont = self.navigatorStyle[@"navBarFontName"];
-  NSNumber *navBarFontSize = self.navigatorStyle[@"navBarFontSize"] || @(17.0);
+  NSNumber *navBarFontSize = self.navigatorStyle[@"navBarFontSize"] ? self.navigatorStyle[@"navBarFontSize"] : @(17.0);
   if (navBarTextColor || navBarFont || navBarFontSize)
   {
-    UIFont *font = navBarFont ? [UIFont fontWithName:navBarFont size:[navBarFontSize floatValue]] : [UIFont systemFontOfSize:[navBarFontSize floatValue] weight:UIFontWeightSemibold];
-    UIColor *color = navBarTextColor != (id)[NSNull null] ? [RCTConvert UIColor:navBarTextColor] : nil;
+    UIFont *font = (navBarFont && navBarFont != (id)[NSNull null]) ? [UIFont fontWithName:navBarFont size:[navBarFontSize floatValue]] : [UIFont systemFontOfSize:[navBarFontSize floatValue] weight:UIFontWeightSemibold];
+    UIColor *color = (navBarTextColor && navBarTextColor != (id)[NSNull null]) ? [RCTConvert UIColor:navBarTextColor] : [UIColor blackColor];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : color, UITextAttributeFont: font}];
   }
   else
