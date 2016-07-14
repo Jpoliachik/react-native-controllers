@@ -170,7 +170,7 @@ const NSInteger BLUR_NAVBAR_TAG = 78264802;
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
- 
+   
   [self setStyleOnAppear];
 }
 
@@ -347,6 +347,15 @@ const NSInteger BLUR_NAVBAR_TAG = 78264802;
   else
   {
     self.navBarHairlineImageView.hidden = NO;
+  }
+  
+  
+  if (self.navigationController) {
+    if (self == [self.navigationController.viewControllers firstObject]) {
+      [[NSNotificationCenter defaultCenter] postNotificationName:@"didAppearNavigationRootController" object:nil];
+    } else {
+      [[NSNotificationCenter defaultCenter] postNotificationName:@"didAppearNavigationNonRootController" object:nil];
+    }
   }
 }
 

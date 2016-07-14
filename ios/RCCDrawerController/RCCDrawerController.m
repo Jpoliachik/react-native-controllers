@@ -62,6 +62,9 @@
     
     self.view.backgroundColor = [UIColor clearColor];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didAppearRootController) name:@"didAppearNavigationRootController" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didAppearNonRootController) name:@"didAppearNavigationNonRootController" object:nil];
+    
     if (!self) return nil;
     return self;
 }
@@ -144,6 +147,15 @@
     
     [MMExampleDrawerVisualStateManager sharedManager].leftDrawerAnimationType = animationType;
     [MMExampleDrawerVisualStateManager sharedManager].rightDrawerAnimationType = animationType;
+}
+
+
+- (void)didAppearRootController {
+    self.openDrawerGestureModeMask = MMOpenDrawerGestureModeAll;
+}
+
+- (void)didAppearNonRootController {
+    self.openDrawerGestureModeMask = MMOpenDrawerGestureModeNone;
 }
 
 
